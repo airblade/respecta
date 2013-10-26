@@ -1,0 +1,59 @@
+# Respecta
+
+Respecta measures how well an abbreviation matches a string.  It tries to respect your wishes by finding the string you want as intuitively as possible.
+
+The matching is not fuzzy: all the letters in the abbreviation must be present in the text to be searched, in the right order.
+
+Its primary purpose is for finding file paths with [Selecta][], a fuzzy text selector, but it can be used for other things.
+
+Respecta prefers:
+
+- letters at the start of "words" to letters in the middle of words
+- contiguous letters to isolated letters
+
+
+## Usage
+
+```ruby
+r = Respecta.new 'app/controllers/search_controller.rb'
+
+r.normalised_score 'search'
+# => 0.158 (3 d.p.)
+
+r.normalised_score 'acsearch'
+# => 0.211 (3 d.p.)
+```
+
+
+## How it works
+
+Respecta separates the finding of matches from their scoring, making each part easier to understand.
+
+Unlike most match-scoring algorithms (as far as I can tell) the scoring algorithm is simple.  The tricky part is finding all the possible matches.
+
+First Respecta finds all the possible combinations of locations where the abbreviation matches the string.  It takes the first letter of the abbreviation and finds all the matches in the string.  From each of those starting points, it looks for matches of the second letter of the abbreviation.  And so on.
+
+Once it has all possible matches, Respecta scores each match and returns the highest score.
+
+
+## Scoring
+
+First Respecta assigns values to each letter in the haystack string.
+
+1. Each letter in the haystack string is given a default value of 1.
+2. Each letter in the haystack string which starts a word is given a bonus value.
+
+To calculate how well an abbreviation matches, Respecta adds up the scores of the letters in the haystack string which were matched.
+
+Respecta then gives a bonus for the number of contiguous matched letters.
+
+These two scores are added and the result is normalised to between 0 and 1.
+
+
+## Why?
+
+There are many such algorithms already but I couldn't understand any of the ones I looked at.  Respecta is simple enough for me to understand.
+
+
+
+  [selecta]: https://github.com/garybernhardt/selecta
