@@ -29,7 +29,7 @@ r.normalised_score 'acsearch'
 
 Respecta separates the finding of matches from their scoring, making each part easier to understand.
 
-Unlike most match-scoring algorithms (as far as I can tell) the scoring algorithm is simple.  The tricky part is finding all the possible matches.
+Unlike most match-scoring algorithms (as far as I can tell) the scoring algorithm is simple.  Finding all the possible matches is also simple, at least conceptually (admittedly the implementation is a little tricky).
 
 First Respecta finds all the possible combinations of locations where the abbreviation matches the string.  It takes the first letter of the abbreviation and finds all the matches in the string.  From each of those starting points, it looks for matches of the second letter of the abbreviation.  And so on.
 
