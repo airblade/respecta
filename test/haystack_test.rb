@@ -5,28 +5,28 @@ class HaystackTest < MiniTest::Unit::TestCase
 
   test 'sanity check' do
     assert_equal 6, Haystack.new('foo').send(:maximum_score)
-    assert_equal 6, Haystack.new('foo').score([0,1,2])
-    assert_equal 1, Haystack.new('foo').normalised_score([0,1,2])
+    assert_equal 6, Haystack.new('foo').send(:absolute_score, [0,1,2])
+    assert_equal 1, Haystack.new('foo').score([0,1,2])
   end
 
   test 'partial match' do
-    assert_equal 3, Haystack.new('foo').score([0,2])
-    assert_equal 4, Haystack.new('foo').score([0,1])
-    assert_equal 3, Haystack.new('foo').score([1,2])
-    assert_in_delta 0.66, Haystack.new('foo').normalised_score([0,1]), 0.01
+    assert_equal 3, Haystack.new('foo').send(:absolute_score, [0,2])
+    assert_equal 4, Haystack.new('foo').send(:absolute_score, [0,1])
+    assert_equal 3, Haystack.new('foo').send(:absolute_score, [1,2])
+    assert_in_delta 0.66, Haystack.new('foo').score([0,1]), 0.01
   end
 
   test 'prefers start of words' do
-    assert_equal 1, Haystack.new('foo').score([1])
-    assert_equal 2, Haystack.new('foo').score([0])
-    assert_equal 2, Haystack.new('foo/bar').score([4])
-    assert_equal 2, Haystack.new('foo/barQux').score([7])
-    assert_equal 2, Haystack.new('foo/bar_qux').score([8])
+    assert_equal 1, Haystack.new('foo').send(:absolute_score, [1])
+    assert_equal 2, Haystack.new('foo').send(:absolute_score, [0])
+    assert_equal 2, Haystack.new('foo/bar').send(:absolute_score, [4])
+    assert_equal 2, Haystack.new('foo/barQux').send(:absolute_score, [7])
+    assert_equal 2, Haystack.new('foo/bar_qux').send(:absolute_score, [8])
   end
 
   test 'prefers contiguous letters' do
-    assert_equal 2, Haystack.new('foobar').score([1, 3])
-    assert_equal 3, Haystack.new('foobar').score([2, 3])
+    assert_equal 2, Haystack.new('foobar').send(:absolute_score, [1, 3])
+    assert_equal 3, Haystack.new('foobar').send(:absolute_score, [2, 3])
   end
 
   #

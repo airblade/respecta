@@ -10,23 +10,24 @@ class Haystack
     @text = text
   end
 
-  # Returns the quality of the match as an integer score.
+  # Returns the quality of the match as a score between 0 (no match)
+  # and 1 (perfect match).
   #
   # indexes - the locations of the letters in `text` which are matched.
   def score(indexes)
+    absolute_score(indexes).to_f / maximum_score
+  end
+
+  private
+
+  # Returns the quality of the match as an integer score.
+  #
+  # indexes - the locations of the letters in `text` which are matched.
+  def absolute_score(indexes)
     total_individual_score = indexes.reduce(0) { |sum, index| sum + individual_letter_scores[index] }
     total_contiguous_score = contiguous_letters_score indexes
     total_individual_score + total_contiguous_score
   end
-
-  # Normalises the score to between 0 and 1.
-  #
-  # indexes - the locations of the letters in `text` which are matched.
-  def normalised_score(indexes)
-    score(indexes).to_f / maximum_score
-  end
-
-  private
 
   # Returns the score you get when the search string matches the `text`.
   def maximum_score

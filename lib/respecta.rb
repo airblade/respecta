@@ -10,14 +10,14 @@ class Respecta
 
   # Returns a score between 0 (no match) and 1 (perfect match) for how well
   # `abbreviation` matches `text`.
-  def normalised_score(abbreviation)
+  def score(abbreviation)
     return 0 if abbreviation.nil? || abbreviation.empty? || abbreviation.length > haystack.text.length
     return 1 if haystack.text == abbreviation
 
     # Find all possible locations where abbreviation matches the haystack text.
     matches = letters haystack.text, abbreviation
     # Score each match and return maximum.
-    max_score = matches.map { |m| haystack.normalised_score m }.max || 0
+    max_score = matches.map { |m| haystack.score m }.max || 0
   end
 
   private

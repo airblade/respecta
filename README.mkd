@@ -17,10 +17,10 @@ Respecta prefers:
 ```ruby
 r = Respecta.new 'app/controllers/search_controller.rb'
 
-r.normalised_score 'search'
+r.score 'search'
 # => 0.158 (3 d.p.)
 
-r.normalised_score 'acsearch'
+r.score 'acsearch'
 # => 0.211 (3 d.p.)
 ```
 
