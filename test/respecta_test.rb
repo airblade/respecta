@@ -38,17 +38,16 @@ class RespectaTest < MiniTest::Unit::TestCase
   end
 
   test 'prioritises final path component (file name)' do
-    skip
-    # filename_match_score = Respecta.new('foo/bar').score('bar')
-    # filepath_match_score = Respecta.new('foo/bar').score('foo')
-    # assert_operator filename_match_score, :>, filepath_match_score
+    filename_match_score = Respecta.new('foo/bar').score('bar')
+    filepath_match_score = Respecta.new('foo/bar').score('foo')
+    assert_operator filename_match_score, :>, filepath_match_score
   end
 
 
   #
   # implementation tests (delete once implementation complete)
   #
-  
+
   test '#recurse' do
     text = 'app/controllers/search_controller.rb'
     respecta = Respecta.new text
