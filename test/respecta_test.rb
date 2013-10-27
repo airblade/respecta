@@ -12,6 +12,10 @@ class RespectaTest < MiniTest::Unit::TestCase
     assert_equal 0, Respecta.new('foo').score('foobar')
   end
 
+  test 'invalid abbreviation scores 0' do
+    assert_equal 0, Respecta.new('foo').score('z')
+  end
+
   test 'total match scores 1.0' do
     assert_equal 1.0, Respecta.new('foo').score('foo')
   end
