@@ -17,7 +17,7 @@ class Respecta
     # Find all possible locations where abbreviation matches the haystack text.
     matches = letters haystack.text, abbreviation
     # Score each match and return maximum.
-    max_score = matches.map { |m| haystack.score m }.max || 0
+    matches.map { |m| haystack.score m }.max || 0
   end
 
   private
