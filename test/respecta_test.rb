@@ -54,7 +54,7 @@ class RespectaTest < MiniTest::Unit::TestCase
 
     assert_equal [[]],      respecta.send(:match_locations, text, 'z')
     assert_equal [[35]],    respecta.send(:match_locations, text, 'b')
-    assert_equal [[0, 18]], respecta.send(:match_locations, text, 'a')
+    assert_equal [[0], [18]], respecta.send(:match_locations, text, 'a')
     assert_equal [[0, 35], [18, 35]], respecta.send(:match_locations, text, 'ab')
   end
 end
