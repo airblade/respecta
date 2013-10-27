@@ -48,7 +48,7 @@ class RespectaTest < MiniTest::Unit::TestCase
   # implementation tests (delete once implementation complete)
   #
 
-  test '#recurse' do
+  test '#match_locations' do
     text = 'app/controllers/search_controller.rb'
     respecta = Respecta.new text
 
