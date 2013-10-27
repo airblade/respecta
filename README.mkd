@@ -55,5 +55,11 @@ These two scores are added and the result is normalised to between 0 and 1.
 There are many such algorithms already but I couldn't understand any of the ones I looked at.  Respecta is simple enough for me to understand.
 
 
+## Intellectual Property
+
+Copyright 2013 Andrew Stewart, AirBlade Sofware.
+
+Released under the MIT licence.
+
 
   [selecta]: https://github.com/garybernhardt/selecta
