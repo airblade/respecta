@@ -15,7 +15,7 @@ class Respecta
     return 1 if haystack.text == abbreviation
 
     # Find all possible locations where abbreviation matches the haystack text.
-    matches = letters haystack.text, abbreviation
+    matches = match_locations haystack.text, abbreviation
     # Score each match and return maximum.
     matches.map { |m| haystack.score m }.max || 0
   end
@@ -26,9 +26,9 @@ class Respecta
   #
   # Examples:
   #
-  #     letters('hello world', 'l')   -> [ [2], [3], [9] ]
-  #     letters('hello world', 'lo')  -> [ [2,4], [2,7], [3,4], [3,7] ]
-  #     letters('hello world', 'lod') -> [ [2,4,10], [2,7,10], [3,4,10], [3,7,10] ]
+  #     match_locations('hello world', 'l')   -> [ [2], [3], [9] ]
+  #     match_locations('hello world', 'lo')  -> [ [2,4], [2,7], [3,4], [3,7] ]
+  #     match_locations('hello world', 'lod') -> [ [2,4,10], [2,7,10], [3,4,10], [3,7,10] ]
   #
   # This is the only non-trivial part of Respecta ;)
   #
@@ -37,7 +37,7 @@ class Respecta
   #
   # - http://lists.lrug.org/pipermail/chat-lrug.org/2013-October/009583.html
   # - https://gist.github.com/knaveofdiamonds/7155189
-  def letters(haystack_str, needle_str)
+  def match_locations(haystack_str, needle_str)
     haystack = haystack_str.chars
     needle   = needle_str.chars
 
