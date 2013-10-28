@@ -36,29 +36,20 @@ class Respecta
   # The implementation below is the fastest I know of:
   #
   # - http://lists.lrug.org/pipermail/chat-lrug.org/2013-October/009583.html
-  # - https://gist.github.com/knaveofdiamonds/7155189
-  def match_locations(haystack_str, needle_str)
-    haystack = haystack_str.chars
-    needle   = needle_str.chars
+  def match_locations(haystack, needles)
+    indices = Hash[haystack.
+                   each_char.
+                   with_index.
+                   group_by { |(char, _)| char }.
+                   map { |(char, values)| [char, values.map { |(_, index)| index }] }]
 
-    @pos_cache = haystack.each.with_index.with_object(Hash.new { |h, k| h[k] = [] }) do |(c, i), h|
-      h[c] << i if needle.include?(c)
-    end
-    @match_cache = Hash.new { |h, k| h[k] = {} }
-    matches needle
-  end
-
-  def matches(chars, current_pos = -1)
-    return [[]] unless chars.any?
-
-    char, *rest = *chars
-    @match_cache[char][current_pos] ||= begin
-      this_matches = @pos_cache[char].select { |candidate_pos| candidate_pos > current_pos }
-      this_matches.each_with_object([]) do |this_pos, memo|
-        matches(rest, this_pos).each do |rest_matches|
-          memo << [this_pos, *rest_matches]
-        end
+    results = indices[needles[0]].map { |i| [i] }
+    needles[1..-1].each_char do |char|
+      results = results.flat_map do |r|
+        indices[char].drop_while { |i| i < r.last }.map { |i| r + [i] }
       end
     end
+
+    results
   end
 end
