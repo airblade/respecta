@@ -29,6 +29,7 @@ class Respecta
   #     match_locations('hello world', 'l')   -> [ [2], [3], [9] ]
   #     match_locations('hello world', 'lo')  -> [ [2,4], [2,7], [3,4], [3,7] ]
   #     match_locations('hello world', 'lod') -> [ [2,4,10], [2,7,10], [3,4,10], [3,7,10] ]
+  #     match_locations('hello world', 'z')   -> [ [] ]
   #
   # This is the only non-trivial part of Respecta ;)
   #
