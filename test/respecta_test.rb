@@ -3,6 +3,10 @@ require_relative '../lib/respecta'
 
 class RespectaTest < MiniTest::Unit::TestCase
 
+  test 'blank text scores 0' do
+    assert_equal 0, Respecta.new('').score('a')
+  end
+
   test 'blank abbreviation scores 0' do
     assert_equal 0, Respecta.new('foo').score('')
     assert_equal 0, Respecta.new('foo').score(nil)
