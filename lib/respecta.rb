@@ -43,9 +43,11 @@ class Respecta
                    group_by { |(char, _)| char }.
                    map { |(char, values)| [char, values.map { |(_, index)| index }] }]
 
+    return [[]] unless indices[needles[0]]
     results = indices[needles[0]].map { |i| [i] }
     needles[1..-1].each_char do |char|
       results = results.flat_map do |r|
+        return [[]] unless indices[char]
         indices[char].drop_while { |i| i < r.last }.map { |i| r + [i] }
       end
     end
