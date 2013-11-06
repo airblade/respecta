@@ -31,13 +31,8 @@ class Respecta
   #     match_locations('hello world', 'lod') -> [ [2,4,10], [2,7,10], [3,4,10], [3,7,10] ]
   #     match_locations('hello world', 'z')   -> [ [] ]
   #
-  # This is the only non-trivial part of Respecta ;)
-  #
-  # This can be achieved in a number of ways and is potentially a hotspot.
-  # The implementation below is the fastest I know of:
-  #
-  # - http://lists.lrug.org/pipermail/chat-lrug.org/2013-October/009583.html
   def match_locations(haystack, needles)
+    # Find indices of each unique character in `haystack`.
     indices = Hash[haystack.
                    each_char.
                    with_index.
@@ -45,6 +40,7 @@ class Respecta
                    map { |(char, values)| [char, values.map { |(_, index)| index }] }]
 
     return [[]] unless indices[needles[0]]
+    # Bootstrap results with indices in haystack of needle's first character.
     results = indices[needles[0]].map { |i| [i] }
     needles[1..-1].each_char do |char|
       results = results.flat_map do |r|
