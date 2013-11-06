@@ -11,8 +11,8 @@ class Respecta
   # Returns a score between 0 (no match) and 1 (perfect match) for how well
   # `abbreviation` matches `text`.
   def score(abbreviation)
-    return 0 if abbreviation.nil? || abbreviation.empty? || abbreviation.length > haystack.text.length
-    return 1 if haystack.text == abbreviation
+    return 1 if haystack.text == abbreviation || abbreviation.nil? || abbreviation.empty?
+    return 0 if abbreviation.length > haystack.text.length
 
     # Find all possible locations where abbreviation matches the haystack text.
     matches = match_locations haystack.text, abbreviation

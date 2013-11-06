@@ -8,8 +8,8 @@ class RespectaTest < MiniTest::Unit::TestCase
   end
 
   test 'blank abbreviation scores 0' do
-    assert_equal 0, Respecta.new('foo').score('')
-    assert_equal 0, Respecta.new('foo').score(nil)
+    assert_equal 1, Respecta.new('foo').score('')
+    assert_equal 1, Respecta.new('foo').score(nil)
   end
 
   test 'abbreviation longer than text scores 0' do
