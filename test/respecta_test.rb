@@ -42,6 +42,7 @@ class RespectaTest < MiniTest::Unit::TestCase
   end
 
   test 'prioritises final path component (file name)' do
+    skip  # not sure how useful this feature actually is
     filename_match_score = Respecta.new('foo/bar').score('bar')
     filepath_match_score = Respecta.new('foo/bar').score('foo')
     assert_operator filename_match_score, :>, filepath_match_score
