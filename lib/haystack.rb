@@ -1,3 +1,5 @@
+require 'strscan'
+
 class Haystack
   DEFAULT_LETTER_SCORE    = 1
   START_OF_WORD_BONUS     = 1
@@ -43,11 +45,21 @@ class Haystack
       # every letter starts with a default score
       scores = Array.new text.length, DEFAULT_LETTER_SCORE
 
-      # first letter of each "word" gets a bonus
-      text.chars.each_with_index do |c, i|
-        if i == 0 || text[i - 1] =~ /[^a-zA-Z0-9]/ || c =~ /[A-Z]/
-          scores[i] += START_OF_WORD_BONUS
-        end
+      # first letter of each "word" gets a bonus:
+
+      # start of string
+      scores[0] += START_OF_WORD_BONUS
+
+      # words start after a non-word character
+      ss = StringScanner.new text
+      while ss.scan_until /[^a-zA-Z0-9]/
+        scores[ss.pos] += START_OF_WORD_BONUS if ss.pos < text.length
+      end
+
+      # words start with a capital letter
+      ss.reset
+      while ss.scan_until /[A-Z]/
+        scores[ss.pos - 1] += START_OF_WORD_BONUS
       end
 
       scores
