@@ -70,6 +70,7 @@ class Haystack
   # The initial value in a run of contiguous values is not tallied.
   #
   # Example: [ 1, 5, 6, 9, 11, 12, 13 ] -> 3
+  #                  ^          ^   ^
   def contiguous_letters_score(indexes)
     indexes.drop(1).each_with_index.reduce(0) do |sum, (value, i)|
       sum += CONTIGUOUS_LETTER_BONUS if value == indexes[i] + 1

@@ -50,8 +50,9 @@ class HaystackTest < MiniTest::Unit::TestCase
   
   test '#contiguous_letter_scores' do
     assert_equal 0, Haystack.new('whatever').send(:contiguous_letters_score, [0])
-    assert_equal 1, Haystack.new('whatever').send(:contiguous_letters_score, [0, 1])
     assert_equal 0, Haystack.new('whatever').send(:contiguous_letters_score, [0, 2])
+    assert_equal 1, Haystack.new('whatever').send(:contiguous_letters_score, [0, 1])
+    assert_equal 2, Haystack.new('whatever').send(:contiguous_letters_score, [0, 1, 2])
     assert_equal 3, Haystack.new('whatever').send(:contiguous_letters_score, [0, 1, 3, 5, 8, 9, 10])
   end
   
