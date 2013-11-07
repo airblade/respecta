@@ -32,19 +32,20 @@ class Respecta
   #     match_locations('hello world', 'z')   -> [ [] ]
   #
   def match_locations(haystack, needles)
+    no_match = []
     # Find indices of each unique character in `haystack`.
+    # e.g. 'haystack' :: {'h' => [0], 'a' => [1, 5], 'y' => [2], 's' => [3], 't' => [4], 'c' => [6], 'k' => [7]}
     indices = Hash[haystack.
                    each_char.
                    with_index.
                    group_by { |(char, _)| char }.
                    map { |(char, values)| [char, values.map { |(_, index)| index }] }]
 
-    return [[]] unless indices[needles[0]]
-    # Bootstrap results with indices in haystack of needle's first character.
+    return no_match unless indices[needles[0]]
     results = indices[needles[0]].map { |i| [i] }
     needles[1..-1].each_char do |char|
       results = results.flat_map do |r|
-        return [[]] unless indices[char]
+        return no_match unless indices[char]
         indices[char].drop_while { |i| i < r.last }.map { |i| r + [i] }
       end
     end
