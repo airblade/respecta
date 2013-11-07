@@ -11,6 +11,8 @@ Respecta prefers:
 - letters at the start of "words" to letters in the middle of words
 - contiguous letters to isolated letters
 
+When Respecta scores how well an abbreviation matches a string, it calculates the best possible score; i.e. the best score of all the ways the abbreviation could match.  While the definitive nature of the score is appealing, it means Respecta (currently) takes too long when there are many possible matches.  See `benchmark.rb` for details.
+
 
 ## Usage
 
